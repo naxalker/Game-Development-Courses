@@ -58,11 +58,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Kenney Pixel SDF
+  m_Name: Kenney Pixel SDF - Dilate
   m_EditorClassIdentifier: 
-  hashCode: 1156823851
+  hashCode: -1595610537
   material: {fileID: 8729410705013211979}
-  materialHashCode: 1693948459
+  materialHashCode: 551473687
   m_Version: 1.1.0
   m_SourceFontFileGUID: 10798a15cd36cc246b48464e7090bc5b
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 10798a15cd36cc246b48464e7090bc5b, type: 3}
@@ -1939,7 +1939,7 @@ Material:
     - _ColorMask: 15
     - _CullMode: 0
     - _Diffuse: 0.5
-    - _FaceDilate: 0.1
+    - _FaceDilate: 0.25
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
     - _GlowInner: 0.05
@@ -1957,8 +1957,8 @@ Material:
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.9
-    - _ScaleRatioB: 0.64125
-    - _ScaleRatioC: 0.64125
+    - _ScaleRatioB: 0.50625
+    - _ScaleRatioC: 0.50625
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0

@@ -7,7 +7,8 @@ public class PlayerHealthController : MonoBehaviour
 {
     public static PlayerHealthController Instance;
 
-    [SerializeField] float maxHealth, currentHealth;
+    public float maxHealth, currentHealth;
+    public GameObject deathEffect;
     [SerializeField] Slider healthSlider;
 
     private void Awake()
@@ -17,6 +18,8 @@ public class PlayerHealthController : MonoBehaviour
 
     private void Start()
     {
+        maxHealth = PlayerStatController.instance.health[0].value;
+
         currentHealth = maxHealth;
         
         healthSlider.maxValue = maxHealth;
@@ -30,6 +33,12 @@ public class PlayerHealthController : MonoBehaviour
         if (currentHealth <= 0)
         {
             gameObject.SetActive(false);
+
+            LevelManager.instance.EndLevel();
+
+            Instantiate(deathEffect, transform.position, transform.rotation);
+
+            SFXManager.instance.PlaySFX(3);
         }
 
         healthSlider.value = currentHealth;

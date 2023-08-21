@@ -32,6 +32,8 @@ public class SpinWeapon : Weapon
 
                 Instantiate(fireballToSpawn, fireballToSpawn.position, Quaternion.Euler(0f, 0f, rotation), holder).gameObject.SetActive(true);
             }
+
+            SFXManager.instance.PlaySFX(8);
         }
 
         if (statsUpdated)

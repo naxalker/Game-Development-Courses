@@ -39,6 +39,10 @@ public class PlayerController : MonoBehaviour
                 assignedWeapons[i].gameObject.SetActive(true);
             }
         }
+
+        moveSpeed = PlayerStatController.instance.moveSpeed[0].value;
+        pickupRange = PlayerStatController.instance.pickupRange[0].value;
+        maxWeapons = Mathf.RoundToInt(PlayerStatController.instance.maxWeapons[0].value);
     }
 
     void Update()
