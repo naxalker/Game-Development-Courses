@@ -2,17 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TileFieldState
+{
+    Empty,
+    Sown,
+    Watered
+}
+
 public class CropTile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private TileFieldState state;
+
+    [Header("Elements")]
+    [SerializeField] private Transform cropParent;
+
+    private void Start()
     {
-        
+        state = TileFieldState.Empty;
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool IsEmpty()
     {
-        
+        return state == TileFieldState.Empty;
+    }
+
+    public void Sow(CropData cropData)
+    {
+        state = TileFieldState.Sown;
+        Crop crop = Instantiate(cropData.cropPrefab, transform.position, Quaternion.identity, cropParent);
     }
 }
