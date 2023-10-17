@@ -26,6 +26,14 @@ public class CropField : MonoBehaviour
         StoreTiles();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            InstantlySowTiles();
+        }
+    }
+
     private void StoreTiles()
     {
         for (int i = 0; i < tilesParent.childCount; i++)
@@ -98,6 +106,24 @@ public class CropField : MonoBehaviour
     {
         state = TileFieldState.Watered;
         onFullyWatered?.Invoke(this);
+    }
+
+    [NaughtyAttributes.Button]
+    private void InstantlySowTiles()
+    {
+        for (int i = 0; i < cropTiles.Count; i++)
+        {
+            Sow(cropTiles[i]);
+        }
+    }
+
+    [NaughtyAttributes.Button]
+    private void InstantlyWaterTiles()
+    {
+        for (int i = 0; i < cropTiles.Count; i++)
+        {
+            Water(cropTiles[i]);
+        }
     }
 
     private CropTile GetClosestCropTile(Vector3 seedPosition)

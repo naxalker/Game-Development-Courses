@@ -5410,7 +5410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.000000008717809, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.00000000871781, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5680,6 +5680,7 @@ GameObject:
   - component: {fileID: 552278953}
   - component: {fileID: 552278955}
   - component: {fileID: 552278954}
+  - component: {fileID: 552278956}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5800,6 +5801,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2548195ef6c8a0a43b96aba4fbeabb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &552278956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552278948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c13d3140d9cd34ea247f24842879dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: dd6d8f5a338c7be45921c81710a6045d, type: 2}
 --- !u!4 &573793425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7859218842385335748, guid: 086fd48fb42741c438b8f46441cd64a9,
@@ -10831,7 +10846,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 768485773}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.000000008717809, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.00000000871781, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12758,9 +12773,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3521698206939690623}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.57783806, y: 0.7102089, z: 0.013353428, w: -0.40190586}
-  m_LocalPosition: {x: -0.011, y: 0.581, z: 0.231}
-  m_LocalScale: {x: 1.4999998, y: 1.5000002, z: 1.4999998}
+  m_LocalRotation: {x: -0.5783235, y: 0.70973957, z: 0.013305187, w: -0.40203828}
+  m_LocalPosition: {x: -0.024, y: 0.259, z: 0.261}
+  m_LocalScale: {x: 1.4999996, y: 1.5000002, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8277298743303263207}
@@ -13053,7 +13068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7593298949151775603}
   - component: {fileID: 6190455299907812658}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stickman_heads_sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13392,7 +13407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3721763534788582640
 Transform:
   m_ObjectHideFlags: 0
