@@ -5765,7 +5765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.00000000871781, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.000000008717809, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11323,7 +11323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 2095822186}
-  moveSpeed: 25
+  moveSpeed: 6
 --- !u!114 &552278952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11338,7 +11338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 584014405300413646}
   waterParticles: {fileID: 278301745}
-  moveSpeedMultiplier: 17
+  moveSpeedMultiplier: 0.7
 --- !u!114 &552278953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16941,7 +16941,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 768485773}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.00000000871781, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.000000008717809, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
