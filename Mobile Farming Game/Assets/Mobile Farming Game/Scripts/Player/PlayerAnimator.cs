@@ -56,4 +56,14 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetLayerWeight(2, 0);
         waterParticles.Stop();
     }
+
+    public void PlayHarvestAnimation()
+    {
+        animator.SetLayerWeight(3, 1);
+    }
+
+    public void StopHarvestAnimation()
+    {
+        animator.SetLayerWeight(3, 0);
+    }
 }

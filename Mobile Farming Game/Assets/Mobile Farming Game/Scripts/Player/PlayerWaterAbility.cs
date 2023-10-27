@@ -20,14 +20,14 @@ public class PlayerWaterAbility : MonoBehaviour
         playerToolSelector = GetComponent<PlayerToolSelector>();
 
         WaterParticles.onWaterCollided += WaterCollidedCallback;
-        CropField.onFullySown += CropFieldFullyWateredCallback;
+        CropField.onFullyWatered += CropFieldFullyWateredCallback;
         playerToolSelector.onToolSelected += ToolSelectedCallback;
     }
 
     private void OnDestroy()
     {
-        SeedParticles.onSeedsCollided -= WaterCollidedCallback;
-        CropField.onFullySown -= CropFieldFullyWateredCallback;
+        WaterParticles.onWaterCollided -= WaterCollidedCallback;
+        CropField.onFullyWatered -= CropFieldFullyWateredCallback;
         playerToolSelector.onToolSelected -= ToolSelectedCallback;
     }
 

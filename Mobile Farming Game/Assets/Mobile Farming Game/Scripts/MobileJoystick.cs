@@ -57,9 +57,9 @@ public class MobileJoystick : MonoBehaviour
         float joystickMoveRadius = joystickOutline.rect.width * canvasScale / 2;
         float moveMagnitude = Mathf.Min(direction.magnitude, joystickMoveRadius);
 
-        move = direction.normalized * moveMagnitude;
+        move = direction.normalized * (moveMagnitude / joystickMoveRadius);
 
-        joystickKnob.position = clickedPosition + move;
+        joystickKnob.position = clickedPosition + direction.normalized * moveMagnitude;
 
         if (Input.GetMouseButtonUp(0))
             HideJoystick();

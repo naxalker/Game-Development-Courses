@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CropField : MonoBehaviour
 {
@@ -15,10 +16,12 @@ public class CropField : MonoBehaviour
     
     private int tilesSown;
     private int tilesWatered;
+    private int tilesHarvested;
 
     [Header("Actions")]
     public static Action<CropField> onFullySown;
     public static Action<CropField> onFullyWatered;
+    public static Action<CropField> onFullyHarvested;
 
     private void Start()
     {
@@ -108,6 +111,45 @@ public class CropField : MonoBehaviour
         onFullyWatered?.Invoke(this);
     }
 
+    public void Harvest(Transform harvestSphere)
+    {
+        float sphereRadius = harvestSphere.localScale.x;
+
+        for (int i = 0; i < cropTiles.Count; i++)
+        {
+            if (cropTiles[i].IsEmpty())
+                continue;
+
+            float distanceCropTileSphere = Vector3.Distance(harvestSphere.position, cropTiles[i].transform.position);
+
+            if (distanceCropTileSphere < sphereRadius)
+                HarvestTile(cropTiles[i]);
+        }
+    }
+
+    private void HarvestTile(CropTile cropTile)
+    {
+        cropTile.Harvest();
+
+        tilesHarvested++;
+
+        if (tilesHarvested == cropTiles.Count)
+        {
+            FiledFullyHarvested();
+        }
+    }
+
+    private void FiledFullyHarvested()
+    {
+        tilesHarvested = 0;
+        tilesSown = 0;
+        tilesWatered = 0;
+
+        state = TileFieldState.Empty;
+
+        onFullyHarvested?.Invoke(this);
+    }
+
     [NaughtyAttributes.Button]
     private void InstantlySowTiles()
     {
@@ -160,5 +202,10 @@ public class CropField : MonoBehaviour
     public bool IsSown()
     {
         return state == TileFieldState.Sown;
+    }
+
+    public bool IsWatered()
+    {
+        return state == TileFieldState.Watered;
     }
 }

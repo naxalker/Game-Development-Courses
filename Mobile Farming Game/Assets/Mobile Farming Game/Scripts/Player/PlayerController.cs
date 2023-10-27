@@ -28,12 +28,12 @@ public class PlayerController : MonoBehaviour
 
     private void ManageMovement()
     {
-        Vector3 moveVector = joystick.move * moveSpeed * Time.deltaTime / Screen.width;
+        Vector3 moveVector = joystick.move;
         
         moveVector.z = moveVector.y;
         moveVector.y = 0;
 
-        characterController.Move(moveVector);
+        characterController.Move(moveVector * moveSpeed * Time.deltaTime);
 
         playerAnimator.ManageAnimations(moveVector);
     }
