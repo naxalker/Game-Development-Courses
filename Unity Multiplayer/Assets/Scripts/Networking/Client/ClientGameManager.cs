@@ -1,8 +1,10 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
@@ -50,6 +52,16 @@ public class ClientGameManager
 
         RelayServerData relayServerData = new RelayServerData(_allocation, "udp");
         transport.SetRelayServerData(relayServerData);
+
+        UserData userData = new UserData
+        {
+            UserAuthId = AuthenticationService.Instance.PlayerId,
+            UserName = PlayerPrefs.GetString(NameSelector.PlayerNameKey, "Missing Name")
+        };
+        string payload = JsonUtility.ToJson(userData);
+        byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+        NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
 
         NetworkManager.Singleton.StartClient();
     }
