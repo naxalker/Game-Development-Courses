@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class HostSingleton : MonoBehaviour
@@ -30,6 +27,11 @@ public class HostSingleton : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager?.Dispose();
     }
 
     public void CreateHost()

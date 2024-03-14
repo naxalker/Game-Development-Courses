@@ -11,15 +11,23 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ClientGameManager
+public class ClientGameManager : IDisposable
 {
     private const string MenuSceneName = "Menu";
 
     private JoinAllocation _allocation;
+    private NetworkClient _networkClient;
+
+    public void Dispose()
+    {
+        _networkClient?.Dispose();
+    }
 
     public async Task<bool> InitAsync()
     {
         await UnityServices.InitializeAsync();
+
+        _networkClient = new NetworkClient(NetworkManager.Singleton);
 
         AuthState authState = await AuthenticationWrapper.DoAuth();
 
