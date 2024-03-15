@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Health : NetworkBehaviour
 {
-    public event Action<Health> OnDied;
+    public event Action<Health> Died;
 
     public NetworkVariable<int> CurrentHealth = new NetworkVariable<int>();
 
@@ -39,7 +39,7 @@ public class Health : NetworkBehaviour
         {
             _isDead = true;
 
-            OnDied?.Invoke(this);
+            Died?.Invoke(this);
         }
     }
 }

@@ -18,6 +18,19 @@ public class NetworkServer : IDisposable
         _networkManager.OnServerStarted += OnNetworkReady;
     }
 
+    public UserData GetUserDataByClientId(ulong clientId)
+    {
+        if (_clientIdToAuth.TryGetValue(clientId, out string authId))
+        {
+            if (_authIdToUserData.TryGetValue(authId, out UserData userData))
+            {
+                return userData;
+            }
+        }
+
+        return null;
+    }
+
     public void Dispose()
     {
         if (_networkManager != null )
@@ -39,6 +52,8 @@ public class NetworkServer : IDisposable
         _authIdToUserData[userData.UserAuthId] = userData;
 
         response.Approved = true;
+        response.Position = SpawnPoint.GetRandomSpawnPos();
+        response.Rotation = Quaternion.identity;
         response.CreatePlayerObject = true;
     }
 
