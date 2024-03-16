@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class NetworkServer : IDisposable
 {
+    public event Action<string> OnClientLeft;
+
     private NetworkManager _networkManager;
 
     private Dictionary<ulong, string> _clientIdToAuth = new Dictionary<ulong, string>();
@@ -68,6 +70,7 @@ public class NetworkServer : IDisposable
         {
             _clientIdToAuth.Remove(clientId);
             _authIdToUserData.Remove(authId);
+            OnClientLeft?.Invoke(authId);
         }
     }
 }

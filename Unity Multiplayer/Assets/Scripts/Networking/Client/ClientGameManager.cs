@@ -18,11 +18,6 @@ public class ClientGameManager : IDisposable
     private JoinAllocation _allocation;
     private NetworkClient _networkClient;
 
-    public void Dispose()
-    {
-        _networkClient?.Dispose();
-    }
-
     public async Task<bool> InitAsync()
     {
         await UnityServices.InitializeAsync();
@@ -37,6 +32,16 @@ public class ClientGameManager : IDisposable
         }
 
         return false;
+    }
+
+    public void Dispose()
+    {
+        _networkClient?.Dispose();
+    }
+
+    public void Disconnect()
+    {
+        _networkClient.Disconnect();
     }
 
     public void GoToMenu()

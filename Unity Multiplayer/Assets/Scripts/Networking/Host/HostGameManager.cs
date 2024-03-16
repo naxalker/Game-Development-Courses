@@ -25,27 +25,6 @@ public class HostGameManager : IDisposable
     private string _joinCode;
     private string _lobbyId;
 
-    public async void Dispose()
-    {
-        HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
-
-        if (!string.IsNullOrEmpty(_lobbyId))
-        {
-            try
-            {
-                await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
-            }
-            catch (LobbyServiceException ex)
-            {
-                Debug.LogWarning(ex);
-            }
-
-            _lobbyId = string.Empty;
-        }
-
-        NetworkServer?.Dispose();
-    }
-
     public async Task StartHostAsync()
     {
         try
@@ -115,7 +94,37 @@ public class HostGameManager : IDisposable
 
         NetworkManager.Singleton.StartHost();
 
+        NetworkServer.OnClientLeft += HandleClientLeft;
+
         NetworkManager.Singleton.SceneManager.LoadScene(GameSceneName, LoadSceneMode.Single);
+    }
+
+    public void Dispose()
+    {
+        Shutdown();
+    }
+
+    public async void Shutdown()
+    {
+        HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
+
+        if (!string.IsNullOrEmpty(_lobbyId))
+        {
+            try
+            {
+                await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
+            }
+            catch (LobbyServiceException ex)
+            {
+                Debug.LogWarning(ex);
+            }
+
+            _lobbyId = string.Empty;
+        }
+
+        NetworkServer.OnClientLeft -= HandleClientLeft;
+
+        NetworkServer?.Dispose();
     }
 
     private IEnumerator HeartbeatLobby(float waitTimeSeconds)
@@ -125,6 +134,18 @@ public class HostGameManager : IDisposable
         {
             Lobbies.Instance.SendHeartbeatPingAsync(_lobbyId);
             yield return delay;
+        }
+    }
+
+    private async void HandleClientLeft(string authId)
+    {
+        try
+        {
+            await LobbyService.Instance.RemovePlayerAsync(_lobbyId, authId);
+        }
+        catch (LobbyServiceException ex)
+        {
+            Debug.LogException(ex);
         }
     }
 }

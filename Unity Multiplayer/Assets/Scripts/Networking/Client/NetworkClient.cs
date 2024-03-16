@@ -23,10 +23,8 @@ public class NetworkClient : IDisposable
         }
     }
 
-    private void OnClientDisconnect(ulong clientId)
+    public void Disconnect()
     {
-        if (clientId != 0 && clientId != _networkManager.LocalClientId) { return; }
-
         if (SceneManager.GetActiveScene().name != MenuSceneName)
         {
             SceneManager.LoadScene(MenuSceneName);
@@ -36,5 +34,12 @@ public class NetworkClient : IDisposable
         {
             _networkManager.Shutdown();
         }
+    }
+
+    private void OnClientDisconnect(ulong clientId)
+    {
+        if (clientId != 0 && clientId != _networkManager.LocalClientId) { return; }
+
+        Disconnect();
     }
 }

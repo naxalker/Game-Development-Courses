@@ -15,9 +15,11 @@ public class TankPlayer : NetworkBehaviour
     [SerializeField] private Health _health;
     [SerializeField] private CoinWallet _wallet;
     [SerializeField] private CinemachineVirtualCamera _followCamera;
+    [SerializeField] private SpriteRenderer _minimapIconRenderer;
 
     [Header("Settings")]
     [SerializeField] private int _ownerPriority = 15;
+    [SerializeField] private Color _minimapColor;
 
     public Health Health => _health;
     public CoinWallet Wallet => _wallet;
@@ -37,6 +39,7 @@ public class TankPlayer : NetworkBehaviour
         if (IsOwner)
         {
             _followCamera.Priority = _ownerPriority;
+            _minimapIconRenderer.color = _minimapColor;
         }
     }
 
