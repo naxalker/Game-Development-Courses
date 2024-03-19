@@ -6,6 +6,8 @@ public class SpawnOnDestroy : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (gameObject.scene.isLoaded == false) { return; }
+
         Instantiate(_prefab, transform.position, Quaternion.identity);
     }
 }

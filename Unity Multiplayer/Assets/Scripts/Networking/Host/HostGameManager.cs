@@ -21,9 +21,16 @@ public class HostGameManager : IDisposable
 
     public NetworkServer NetworkServer { get; private set; }
 
+    private NetworkObject _playerPrefab;
+
     private Allocation _allocation;
     private string _joinCode;
     private string _lobbyId;
+
+    public HostGameManager(NetworkObject playerPrefab)
+    {
+        _playerPrefab = playerPrefab;
+    }
 
     public async Task StartHostAsync()
     {
@@ -80,7 +87,7 @@ public class HostGameManager : IDisposable
             return;
         }
 
-        NetworkServer = new NetworkServer(NetworkManager.Singleton);
+        NetworkServer = new NetworkServer(NetworkManager.Singleton, _playerPrefab);
 
         UserData userData = new UserData
         {
@@ -106,21 +113,20 @@ public class HostGameManager : IDisposable
 
     public async void Shutdown()
     {
+        if (string.IsNullOrEmpty(_lobbyId)) { return; }
+
         HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
 
-        if (!string.IsNullOrEmpty(_lobbyId))
+        try
         {
-            try
-            {
-                await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
-            }
-            catch (LobbyServiceException ex)
-            {
-                Debug.LogWarning(ex);
-            }
-
-            _lobbyId = string.Empty;
+            await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
         }
+        catch (LobbyServiceException ex)
+        {
+            Debug.LogWarning(ex);
+        }
+
+        _lobbyId = string.Empty;
 
         NetworkServer.OnClientLeft -= HandleClientLeft;
 

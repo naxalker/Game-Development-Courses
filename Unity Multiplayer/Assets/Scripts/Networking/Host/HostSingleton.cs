@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class HostSingleton : MonoBehaviour
@@ -16,7 +17,6 @@ public class HostSingleton : MonoBehaviour
 
             if (_instance == null)
             {
-                Debug.LogError("No Host Singleton in the scene!");
                 return null;
             }
 
@@ -34,8 +34,8 @@ public class HostSingleton : MonoBehaviour
         GameManager?.Dispose();
     }
 
-    public void CreateHost()
+    public void CreateHost(NetworkObject playerPrefab)
     {
-        GameManager = new HostGameManager();
+        GameManager = new HostGameManager(playerPrefab);
     }
 }

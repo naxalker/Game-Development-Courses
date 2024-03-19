@@ -16,6 +16,7 @@ public class TankPlayer : NetworkBehaviour
     [SerializeField] private CoinWallet _wallet;
     [SerializeField] private CinemachineVirtualCamera _followCamera;
     [SerializeField] private SpriteRenderer _minimapIconRenderer;
+    [SerializeField] private Texture2D _crosshair;
 
     [Header("Settings")]
     [SerializeField] private int _ownerPriority = 15;
@@ -28,8 +29,16 @@ public class TankPlayer : NetworkBehaviour
     {
         if (IsServer)
         {
-            UserData userData =
-                HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
+            UserData userData = null;
+
+            if (IsHost)
+            {
+                userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
+            }
+            else
+            {
+                userData = ServerSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
+            }
 
             PlayerName.Value = userData.UserName;
 
@@ -39,7 +48,10 @@ public class TankPlayer : NetworkBehaviour
         if (IsOwner)
         {
             _followCamera.Priority = _ownerPriority;
+
             _minimapIconRenderer.color = _minimapColor;
+
+            Cursor.SetCursor(_crosshair, new Vector2(_crosshair.width / 2, _crosshair.height / 2), CursorMode.Auto);
         }
     }
 
