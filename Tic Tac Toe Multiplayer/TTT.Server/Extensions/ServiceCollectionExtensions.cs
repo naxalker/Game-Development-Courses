@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NetworkShared;
 using NetworkShared.Attributes;
 using System.Reflection;
-using TTT.Server.NetworkShared;
 
 namespace TTT.Server.Extensions
 {

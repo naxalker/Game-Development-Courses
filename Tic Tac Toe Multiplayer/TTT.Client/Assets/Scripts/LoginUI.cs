@@ -1,8 +1,9 @@
 using NetworkShared.Packets.ClientServer;
-using System;
+using NetworkShared.Packets.ServerClient;
 using System.Collections;
 using System.Text.RegularExpressions;
 using TMPro;
+using TTT.PacketHandlers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ public class LoginUI : MonoBehaviour
     private TMP_Text _passwordError;
     private TMP_Text _usernameError;
     private Transform _loadingUI;
+    private TMP_Text _loginError;
 
     private bool _isConnected = false;
 
@@ -39,6 +41,9 @@ public class LoginUI : MonoBehaviour
         _passwordError = _passwordInput.transform.Find("Error").GetComponent<TMP_Text>();
 
         _loadingUI = transform.Find("Loading");
+        _loginError = transform.Find("Login Error").GetComponent<TMP_Text>();
+
+        OnAuthFailHandler.OnAuthFail += ShowLoginError;
 
         NetworkClient.Instance.OnServerConnected += SetIsConnected;
     }
@@ -46,6 +51,7 @@ public class LoginUI : MonoBehaviour
     private void OnDestroy()
     {
         NetworkClient.Instance.OnServerConnected -= SetIsConnected;
+        OnAuthFailHandler.OnAuthFail -= ShowLoginError;
     }
 
     private void SetIsConnected()
@@ -125,5 +131,12 @@ public class LoginUI : MonoBehaviour
             Password = _password,
         };
         NetworkClient.Instance.SendServer(authRequest);
+    }
+
+    private void ShowLoginError(Net_OnAuthFail obj)
+    {
+        EnableLoginButton(false);
+        _loadingUI.gameObject.SetActive(false);
+        _loginError.gameObject.SetActive(true);
     }
 }
