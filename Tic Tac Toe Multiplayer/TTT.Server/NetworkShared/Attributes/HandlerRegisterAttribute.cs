@@ -1,4 +1,6 @@
-﻿namespace NetworkShared.Attributes
+﻿using System;
+
+namespace NetworkShared.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class HandlerRegisterAttribute : Attribute

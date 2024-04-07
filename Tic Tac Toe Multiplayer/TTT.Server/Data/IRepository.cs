@@ -1,4 +1,6 @@
-﻿namespace TTT.Server.Data
+﻿using System.Linq;
+
+namespace TTT.Server.Data
 {
     public interface IRepository<T> where T : class
     {
