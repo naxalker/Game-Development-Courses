@@ -1,13 +1,25 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Zenject;
 
-public class GameInput : MonoBehaviour
+public class GameInput : IInitializable
 {
+    public event Action InteractPressed;
+
     private PlayerInputActions _inputActions;
 
-    private void Awake()
+    public void Initialize()
     {
         _inputActions = new PlayerInputActions();
         _inputActions.Enable();
+
+        _inputActions.Player.Interact.performed += InteractPerformedHandler;
+    }
+
+    private void InteractPerformedHandler(InputAction.CallbackContext context)
+    {
+        InteractPressed?.Invoke();
     }
 
     public Vector2 GetMovementVectorNormalized()
