@@ -6,7 +6,7 @@ public class SelectedCounterVisual : MonoBehaviour
     [SerializeField] private GameObject _selectedVisual;
 
     private Player _player;
-    private ClearCounter _clearCounter;
+    private BaseCounter _baseCounter;
 
     [Inject]
     private void Construct(Player player)
@@ -16,7 +16,7 @@ public class SelectedCounterVisual : MonoBehaviour
 
     private void Awake()
     {
-        _clearCounter = GetComponentInParent<ClearCounter>();
+        _baseCounter = GetComponentInParent<BaseCounter>();
     }
 
     private void OnEnable()
@@ -29,8 +29,8 @@ public class SelectedCounterVisual : MonoBehaviour
         _player.SelectedCounterChanged -= SelectedCounterChangedHandler;
     }
 
-    private void SelectedCounterChangedHandler(ClearCounter counter)
+    private void SelectedCounterChangedHandler(BaseCounter counter)
     {
-        _selectedVisual.SetActive(counter == _clearCounter);
+        _selectedVisual.SetActive(counter == _baseCounter);
     }
 }

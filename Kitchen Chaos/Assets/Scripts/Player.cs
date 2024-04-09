@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IKitchenObjectParent
 {
-    public event Action<ClearCounter> SelectedCounterChanged;
+    public event Action<BaseCounter> SelectedCounterChanged;
     
     private const float InteractDistance = 2f;
 
@@ -12,19 +12,34 @@ public class Player : MonoBehaviour
     [SerializeField] private float _moveSpeed = 7f;
     [SerializeField] private float _rotateSpeed = 10f;
 
+    [Header("References")]
+    [SerializeField] private Transform _kitchenObjectHoldPoint;
+
+    private KitchenObject _kitchenObject;
+    
     private bool _isWalking;
 
     private GameInput _gameInput;
     private Rigidbody _rb;
-    private ClearCounter _selectedCounter;
-
-    public bool IsWalking => _isWalking;
+    private BaseCounter _selectedCounter;
 
     [Inject]
     private void Construct(GameInput gameInput)
     {
         _gameInput = gameInput;
     }
+
+    public bool IsWalking => _isWalking;
+
+    public Transform KitchenObjectFollowTransform => _kitchenObjectHoldPoint;
+
+    public KitchenObject KitchenObject
+    {
+        get { return _kitchenObject; }
+        set { _kitchenObject = value; }
+    }
+
+    public bool HasKitchenObject => _kitchenObject != null;
 
     private void Awake()
     {
@@ -34,11 +49,13 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         _gameInput.InteractPressed += InteractPressedHandler;
+        _gameInput.InteractAlternatePressed += InteractAlternatePressedHandler;
     }
 
     private void OnDisable()
     {
         _gameInput.InteractPressed -= InteractPressedHandler;
+        _gameInput.InteractAlternatePressed -= InteractAlternatePressedHandler;
     }
 
     private void Update()
@@ -47,21 +64,26 @@ public class Player : MonoBehaviour
         HandleMovement();
     }
 
+    public void ClearKitchenObject()
+    {
+        _kitchenObject = null;
+    }
+
     private void HandleInteractions()
     {
         int counterLayer = LayerMask.NameToLayer("Counters");
         int onlyCountersLayerMask = 1 << counterLayer;
 
-        ClearCounter clearCounter = null;
+        BaseCounter baseCounter = null;
 
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit raycastHit, InteractDistance, onlyCountersLayerMask))
         {
-            clearCounter = raycastHit.transform.GetComponent<ClearCounter>();
+            baseCounter = raycastHit.transform.GetComponent<BaseCounter>();
         }
 
-        if (clearCounter != _selectedCounter)
+        if (baseCounter != _selectedCounter)
         {
-            _selectedCounter = clearCounter;
+            _selectedCounter = baseCounter;
 
             SelectedCounterChanged?.Invoke(_selectedCounter);
         }
@@ -69,12 +91,18 @@ public class Player : MonoBehaviour
 
     private void InteractPressedHandler()
     {
-        _selectedCounter?.Interact();
+        _selectedCounter?.Interact(this);
+    }
+
+    private void InteractAlternatePressedHandler()
+    {
+        _selectedCounter?.InteractAlternate(this);
     }
 
     private void HandleMovement()
     {
         Vector2 inputVector = _gameInput.GetMovementVectorNormalized();
+
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
         _rb.velocity = moveDir * _moveSpeed;
