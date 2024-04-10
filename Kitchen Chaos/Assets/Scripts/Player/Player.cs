@@ -5,7 +5,8 @@ using Zenject;
 public class Player : MonoBehaviour, IKitchenObjectParent
 {
     public event Action<BaseCounter> SelectedCounterChanged;
-    
+    public event Action PickedSomething;
+
     private const float InteractDistance = 2f;
 
     [Header("Settings")]
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     [SerializeField] private Transform _kitchenObjectHoldPoint;
 
     private KitchenObject _kitchenObject;
-    
+
     private bool _isWalking;
 
     private GameInput _gameInput;
@@ -36,7 +37,15 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     public KitchenObject KitchenObject
     {
         get { return _kitchenObject; }
-        set { _kitchenObject = value; }
+        set
+        {
+            _kitchenObject = value;
+
+            if (_kitchenObject != null)
+            {
+                PickedSomething?.Invoke();
+            }
+        }
     }
 
     public bool HasKitchenObject => _kitchenObject != null;

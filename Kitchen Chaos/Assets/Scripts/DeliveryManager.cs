@@ -8,6 +8,8 @@ public class DeliveryManager : ITickable
 {
     public event Action<RecipeSO> RecipeSpawned;
     public event Action<RecipeSO> RecipeCompleted;
+    public event Action RecipeSuccessed;
+    public event Action RecipeFailed;
 
     private const float SpawnRecipeTimerMax = 4f;
     private const int WaitingRecipesMax = 4;
@@ -72,11 +74,12 @@ public class DeliveryManager : ITickable
                     _waitingRecipes.RemoveAt(i);
 
                     RecipeCompleted?.Invoke(waitingRecipeSO);
+                    RecipeSuccessed?.Invoke();
                     return;
                 }
             }
         }
 
-        // No matches found!
+        RecipeFailed?.Invoke();
     }
 }

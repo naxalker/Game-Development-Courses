@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CuttingCounter : BaseCounter, IHasProgress
 {
+    public static event Action<CuttingCounter> AnyCut;
+
     public event Action<float> ProgressChanged;
     public event Action Cut;
 
@@ -51,7 +53,10 @@ public class CuttingCounter : BaseCounter, IHasProgress
             if (suitableRecipe != null)
             {
                 _cuttingProgress++;
+
                 Cut?.Invoke();
+                AnyCut?.Invoke(this);
+
                 ProgressChanged?.Invoke((float)_cuttingProgress / suitableRecipe.CuttingProgresMax);
 
                 if (_cuttingProgress >= suitableRecipe.CuttingProgresMax)
