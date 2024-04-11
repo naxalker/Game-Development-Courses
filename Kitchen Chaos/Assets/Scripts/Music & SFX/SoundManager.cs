@@ -5,6 +5,8 @@ using Random = UnityEngine.Random;
 
 public class SoundManager : IInitializable, IDisposable
 {
+    private const string SoundEffectsVolumePlayerPrefs = "SoundEffectsVolume";
+
     private AudioClipRefsSO _audioClipRefs;
     private readonly DeliveryManager _deliveryManager;
     private readonly Player _player;
@@ -22,6 +24,8 @@ public class SoundManager : IInitializable, IDisposable
 
     public void Initialize()
     {
+        _volume = PlayerPrefs.GetFloat(SoundEffectsVolumePlayerPrefs, 1f);
+
         _deliveryManager.RecipeSuccessed += RecipeSuccessedHandler;
         _deliveryManager.RecipeFailed += RecipeFailedHandler;
 
@@ -56,6 +60,8 @@ public class SoundManager : IInitializable, IDisposable
         {
             _volume = 0f;
         }
+
+        PlayerPrefs.SetFloat(SoundEffectsVolumePlayerPrefs, _volume);
     }
 
     public void PlayFootstepSound(Vector3 position)

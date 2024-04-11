@@ -1,7 +1,10 @@
 using UnityEngine;
+using Zenject;
 
-public class MusicManager
+public class MusicManager : IInitializable
 {
+    private const string MusicVolumePlayerPrefs = "MusicVolume";
+
     private AudioSource _backgroundMusic;
     private float _volume = .3f;
 
@@ -11,6 +14,12 @@ public class MusicManager
     }
 
     public float Volume => _volume;
+
+    public void Initialize()
+    {
+        _volume = PlayerPrefs.GetFloat(MusicVolumePlayerPrefs, .3f);
+        _backgroundMusic.volume = _volume;
+    }
 
     public void ChangeVolume()
     {
@@ -22,5 +31,7 @@ public class MusicManager
         }
 
         _backgroundMusic.volume = _volume;
+
+        PlayerPrefs.SetFloat(MusicVolumePlayerPrefs, _volume);
     }
 }

@@ -9,6 +9,6 @@ public class SoundAndMusicInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.BindInterfacesAndSelfTo<SoundManager>().AsSingle().WithArguments(_audioClipRefs);
-        Container.Bind<MusicManager>().AsSingle().WithArguments(backgroundMusic);
+        Container.BindInterfacesAndSelfTo<MusicManager>().AsSingle().WithArguments(backgroundMusic);
     }
 }
