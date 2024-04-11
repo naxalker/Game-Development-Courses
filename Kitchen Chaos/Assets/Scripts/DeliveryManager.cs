@@ -18,6 +18,7 @@ public class DeliveryManager : ITickable
 
     private List<RecipeSO> _waitingRecipes = new List<RecipeSO>();
     private float _spawnRecipeTimer;
+    private int _successfulRecipesAmount;
 
     public DeliveryManager(RecipeListSO recipeListSO)
     {
@@ -25,6 +26,7 @@ public class DeliveryManager : ITickable
     }
 
     public List<RecipeSO> WaitingRecipes => _waitingRecipes;
+    public int SuccessfulRecipesAmount => _successfulRecipesAmount;
 
     public void Tick()
     {
@@ -71,6 +73,8 @@ public class DeliveryManager : ITickable
 
                 if (plateContentsMatchesRecipe)
                 {
+                    _successfulRecipesAmount++;
+
                     _waitingRecipes.RemoveAt(i);
 
                     RecipeCompleted?.Invoke(waitingRecipeSO);

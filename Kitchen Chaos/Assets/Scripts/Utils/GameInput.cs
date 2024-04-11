@@ -7,6 +7,7 @@ public class GameInput : IInitializable, IDisposable
 {
     public event Action InteractPressed;
     public event Action InteractAlternatePressed;
+    public event Action PausePressed;
 
     private PlayerInputActions _inputActions;
 
@@ -17,12 +18,16 @@ public class GameInput : IInitializable, IDisposable
 
         _inputActions.Player.Interact.performed += InteractPerformedHandler;
         _inputActions.Player.InteractAlternate.performed += InteractAlternatePerformedHandler;
+        _inputActions.Player.Pause.performed += PausePerformedHandler;
     }
 
     public void Dispose()
     {
         _inputActions.Player.Interact.performed -= InteractPerformedHandler;
         _inputActions.Player.InteractAlternate.performed -= InteractAlternatePerformedHandler;
+        _inputActions.Player.Pause.performed += PausePerformedHandler;
+
+        _inputActions.Dispose();
     }
 
     private void InteractPerformedHandler(InputAction.CallbackContext context)
@@ -33,6 +38,11 @@ public class GameInput : IInitializable, IDisposable
     private void InteractAlternatePerformedHandler(InputAction.CallbackContext context)
     {
         InteractAlternatePressed?.Invoke();
+    }
+
+    private void PausePerformedHandler(InputAction.CallbackContext context)
+    {
+        PausePressed?.Invoke();
     }
 
     public Vector2 GetMovementVectorNormalized()

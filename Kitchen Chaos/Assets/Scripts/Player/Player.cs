@@ -21,13 +21,15 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private bool _isWalking;
 
     private GameInput _gameInput;
+    private GameManager _gameManager;
     private Rigidbody _rb;
     private BaseCounter _selectedCounter;
 
     [Inject]
-    private void Construct(GameInput gameInput)
+    private void Construct(GameInput gameInput, GameManager gameManager)
     {
         _gameInput = gameInput;
+        _gameManager = gameManager;
     }
 
     public bool IsWalking => _isWalking;
@@ -100,11 +102,15 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void InteractPressedHandler()
     {
+        if (_gameManager.IsGamePlaying == false) return;
+
         _selectedCounter?.Interact(this);
     }
 
     private void InteractAlternatePressedHandler()
     {
+        if (_gameManager.IsGamePlaying == false) return;
+
         _selectedCounter?.InteractAlternate(this);
     }
 

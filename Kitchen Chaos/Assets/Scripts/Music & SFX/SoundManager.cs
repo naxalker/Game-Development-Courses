@@ -9,12 +9,16 @@ public class SoundManager : IInitializable, IDisposable
     private readonly DeliveryManager _deliveryManager;
     private readonly Player _player;
 
+    private float _volume = 1f;
+
     public SoundManager(AudioClipRefsSO audioClipRefs, DeliveryManager deliveryManager, Player player)
     {
         _deliveryManager = deliveryManager;
         _audioClipRefs = audioClipRefs;
         _player = player;
     }
+
+    public float Volume => _volume;
 
     public void Initialize()
     {
@@ -42,6 +46,16 @@ public class SoundManager : IInitializable, IDisposable
         BaseCounter.AnyObjectPlaced -= AnyObjectPlacedHandler;
 
         TrashCounter.AnyObjectTrashed -= AnyObjectTrashedHandler;
+    }
+
+    public void ChangeVolume()
+    {
+        _volume += .1f;
+
+        if (_volume > 1f)
+        {
+            _volume = 0f;
+        }
     }
 
     public void PlayFootstepSound(Vector3 position)
@@ -84,8 +98,8 @@ public class SoundManager : IInitializable, IDisposable
         PlaySound(audioClips[Random.Range(0, audioClips.Length)], position, volume);
     }
 
-    private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1f)
+    private void PlaySound(AudioClip audioClip, Vector3 position, float volumeMultiplier = 1f)
     {
-        AudioSource.PlayClipAtPoint(audioClip, position, volume);
+        AudioSource.PlayClipAtPoint(audioClip, position, volumeMultiplier * _volume);
     }
 }
