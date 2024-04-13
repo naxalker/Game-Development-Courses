@@ -15,14 +15,16 @@ public class DeliveryManager : ITickable
     private const int WaitingRecipesMax = 4;
 
     private readonly RecipeListSO _recipeListSO;
+    private readonly GameManager _gameManager;
 
     private List<RecipeSO> _waitingRecipes = new List<RecipeSO>();
     private float _spawnRecipeTimer;
     private int _successfulRecipesAmount;
 
-    public DeliveryManager(RecipeListSO recipeListSO)
+    public DeliveryManager(RecipeListSO recipeListSO, GameManager gameManager)
     {
         _recipeListSO = recipeListSO;
+        _gameManager = gameManager;
     }
 
     public List<RecipeSO> WaitingRecipes => _waitingRecipes;
@@ -33,15 +35,15 @@ public class DeliveryManager : ITickable
         _spawnRecipeTimer -= Time.deltaTime;
         if (_spawnRecipeTimer <= 0f)
         {
-            if (_waitingRecipes.Count < WaitingRecipesMax)
+            if (_gameManager.IsGamePlaying && _waitingRecipes.Count < WaitingRecipesMax)
             {
                 RecipeSO recipeSO = _recipeListSO.AllRecipes[Random.Range(0, _recipeListSO.AllRecipes.Count)];
                 _waitingRecipes.Add(recipeSO);
 
                 RecipeSpawned?.Invoke(recipeSO);
-            }
 
-            _spawnRecipeTimer = SpawnRecipeTimerMax;
+                _spawnRecipeTimer = SpawnRecipeTimerMax;
+            }
         }
     }
 

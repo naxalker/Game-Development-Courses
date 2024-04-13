@@ -26,6 +26,8 @@ public class StoveCounter : BaseCounter, IHasProgress
     private float _burningTimer;
     private BurningRecipeSO _burningRecipe;
 
+    public bool IsFried => _state == State.Fried;
+
     private void Update()
     {
         switch (_state)

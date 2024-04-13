@@ -16,13 +16,12 @@ public class GameManager : IInitializable, ITickable, IDisposable
     public event Action GamePaused;
     public event Action GameUnpaused;
 
-    private const float GamePlayingTimerMax = 10f;
+    private const float GamePlayingTimerMax = 120f;
 
     private readonly GameInput _gameInput;
 
     private State _state;
     private bool _gameIsPaused;
-    private float _waitingToStartTimer = 1f;
     private float _countdownToStartTimer = 3f;
     private float _gamePlayingTimer;
 
@@ -40,11 +39,13 @@ public class GameManager : IInitializable, ITickable, IDisposable
         _state = State.WaitingToStart;
 
         _gameInput.PausePressed += PausePressedHandler;
+        _gameInput.InteractPressed += InteractPressedHandler;
     }
 
     public void Dispose()
     {
         _gameInput.PausePressed -= PausePressedHandler;
+        _gameInput.InteractPressed -= InteractPressedHandler;
     }
 
     public void Tick()
@@ -52,13 +53,6 @@ public class GameManager : IInitializable, ITickable, IDisposable
         switch (_state)
         {
             case State.WaitingToStart:
-                _waitingToStartTimer -= Time.deltaTime;
-                if (_waitingToStartTimer < 0f)
-                {
-                    _state = State.CountdownToStart;
-
-                    StateChanged?.Invoke(_state);
-                }
                 break;
 
             case State.CountdownToStart:
@@ -103,6 +97,15 @@ public class GameManager : IInitializable, ITickable, IDisposable
         }
 
         _gameIsPaused = !_gameIsPaused;
+    }
+
+    private void InteractPressedHandler()
+    {
+        if (_state == State.WaitingToStart)
+        {
+            _state = State.CountdownToStart;
+            StateChanged?.Invoke(_state);
+        }
     }
 
     private void PausePressedHandler()

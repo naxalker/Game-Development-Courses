@@ -69,6 +69,16 @@ public class SoundManager : IInitializable, IDisposable
         PlaySound(_audioClipRefs.Footstep, position);
     }
 
+    public void PlayCountdownSound()
+    {
+        PlaySound(_audioClipRefs.Warning[0], Vector3.zero);
+    }
+
+    public void PlayWarningSound(Vector3 position)
+    {
+        PlaySound(_audioClipRefs.Warning[0], position);
+    }
+
     private void AnyObjectTrashedHandler(TrashCounter counter)
     {
         PlaySound(_audioClipRefs.Trash, counter.transform.position);

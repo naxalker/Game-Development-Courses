@@ -16,4 +16,4 @@ MonoBehaviour:
     type: 2}
   <Output>k__BackingField: {fileID: 11400000, guid: 3758bb97075dfd543b82e553198c7b49,
     type: 2}
-  <BurningTimerMax>k__BackingField: 5
+  <BurningTimerMax>k__BackingField: 6

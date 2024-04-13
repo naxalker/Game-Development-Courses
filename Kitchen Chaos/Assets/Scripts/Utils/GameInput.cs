@@ -10,6 +10,7 @@ public class GameInput : IInitializable, IDisposable
     public event Action InteractPressed;
     public event Action InteractAlternatePressed;
     public event Action PausePressed;
+    public event Action BindingRebind;
 
     public enum Binding
     {
@@ -182,6 +183,8 @@ public class GameInput : IInitializable, IDisposable
                 onActionRebound();
 
                 PlayerPrefs.SetString(BindingsPlayerPrefs, _inputActions.SaveBindingOverridesAsJson());
+
+                BindingRebind?.Invoke();
             })
             .Start();
     }

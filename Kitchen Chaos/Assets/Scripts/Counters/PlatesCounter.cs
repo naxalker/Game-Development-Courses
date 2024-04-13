@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 public class PlatesCounter : BaseCounter
 {
@@ -10,20 +11,26 @@ public class PlatesCounter : BaseCounter
 
     [SerializeField] private KitchenObjectSO _plateKitchenObjectSO;
 
+    private GameManager _gameManager;
+
     private float _spawnPlateTimer;
     private int _platesSpawnedAmount;
 
+    [Inject]
+    private void Construct(GameManager gameManager)
+    {
+        _gameManager = gameManager;
+    }
+
     private void Update()
     {
-        if (_platesSpawnedAmount == PlatesSpawnedAmountMax) return;
-
         _spawnPlateTimer += Time.deltaTime;
 
         if (_spawnPlateTimer >= SpawnPlateTimerMax)
         {
             _spawnPlateTimer = 0;
 
-            if (_platesSpawnedAmount < PlatesSpawnedAmountMax)
+            if (_gameManager.IsGamePlaying && _platesSpawnedAmount < PlatesSpawnedAmountMax)
             {
                 _platesSpawnedAmount++;
 

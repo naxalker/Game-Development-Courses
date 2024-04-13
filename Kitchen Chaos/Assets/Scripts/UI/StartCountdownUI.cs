@@ -2,16 +2,29 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
+[RequireComponent(typeof(Animator))]
 public class StartCountdownUI : MonoBehaviour
 {
+    private const string NumberPopup = "NumberPopup";
+
     [SerializeField] private TMP_Text _countdownLabel;
 
     private GameManager _gameManager;
+    private SoundManager _soundManager;
+    private Animator _animator;
+
+    private int _previousCountdownNumber;
 
     [Inject]
-    private void Construct(GameManager gameManager)
+    private void Construct(GameManager gameManager, SoundManager soundManager)
     {
         _gameManager = gameManager;
+        _soundManager = soundManager;
+    }
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -23,7 +36,15 @@ public class StartCountdownUI : MonoBehaviour
 
     private void Update()
     {
-        _countdownLabel.text = Mathf.Ceil(_gameManager.CountdownToStartTimer).ToString();
+        int countdownNumber = Mathf.CeilToInt(_gameManager.CountdownToStartTimer);
+        _countdownLabel.text = countdownNumber.ToString();
+
+        if (_previousCountdownNumber != countdownNumber)
+        {
+            _previousCountdownNumber = countdownNumber;
+            _animator.SetTrigger(NumberPopup);
+            _soundManager.PlayCountdownSound();
+        }
     }
 
     private void OnDestroy()
