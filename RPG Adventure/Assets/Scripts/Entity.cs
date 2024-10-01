@@ -44,7 +44,7 @@ public class Entity : MonoBehaviour
 
     }
 
-    public virtual void Damage()
+    public virtual void DealDamage()
     {
         fx.StartCoroutine("FlashFX");
         StartCoroutine(HitKnockback());

@@ -12,6 +12,7 @@ public class Player : Entity
     [Header("Move Info")]
     public float moveSpeed = 12f;
     public float jumpForce;
+    public float SwordReturnImpact;
 
     [Header("Dash Info")]
     public float dashSpeed;
@@ -36,6 +37,7 @@ public class Player : Entity
     #endregion
 
     public SkillManager SkillManagerInstance => SkillManager.Instance;
+    public SwordSkillController Sword { get; private set; }
 
     protected override void Awake()
     {
@@ -76,6 +78,26 @@ public class Player : Entity
 
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
 
+    public void AssignNewSword(SwordSkillController newSword)
+    {
+        Sword = newSword;
+    }
+
+    public void CatchTheSword()
+    {
+        stateMachine.ChangeState(CatchSword);
+        Destroy(Sword.gameObject);
+    }
+
+    public IEnumerator BusyFor(float _seconds)
+    {
+        isBusy = true;
+
+        yield return new WaitForSeconds(_seconds);
+
+        isBusy = false;
+    }
+
     private void CheckForDashInput()
     {
         if (IsWallDetected())
@@ -86,19 +108,10 @@ public class Player : Entity
             SkillManagerInstance.Dash.UseSkill();
 
             dashDirection = Input.GetAxisRaw("Horizontal");
-            if (dashDirection == 0) 
+            if (dashDirection == 0)
                 dashDirection = facingDir;
 
             stateMachine.ChangeState(dashState);
         }
-    }
-
-    public IEnumerator BusyFor(float _seconds)
-    {
-        isBusy = true;
-
-        yield return new WaitForSeconds(_seconds);
-
-        isBusy = false;
     }
 }
