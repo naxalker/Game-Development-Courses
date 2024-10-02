@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -16,6 +15,7 @@ public class Enemy : Entity
     public float moveSpeed;
     public float idleTime;
     public float battleTime;
+    private float _defaultMoveSpeed;
 
     [Header("Attack Info")]
     public float attackDistance;
@@ -29,6 +29,7 @@ public class Enemy : Entity
         base.Awake();
 
         stateMachine = new EnemyStateMachine();
+        _defaultMoveSpeed = moveSpeed;
     }
 
     protected override void Update()
@@ -61,9 +62,32 @@ public class Enemy : Entity
         return false;
     }
 
+    public virtual void FreezeTime(bool timeFrozen)
+    {
+        if (timeFrozen)
+        {
+            moveSpeed = 0f;
+            anim.speed = 0f;
+        }
+        else
+        {
+            moveSpeed = _defaultMoveSpeed;
+            anim.speed = 1f;
+        }
+    }
+
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
 
     public virtual RaycastHit2D IsPlayerDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsPlayer);
+
+    protected virtual IEnumerator FreezeTimeFor(float seconds)
+    {
+        FreezeTime(true);
+
+        yield return new WaitForSeconds(seconds);
+
+        FreezeTime(false);
+    }
 
     protected override void OnDrawGizmos()
     {
