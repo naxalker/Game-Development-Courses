@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -8,6 +7,7 @@ public class Entity : MonoBehaviour
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
     public EntityFX fx { get; private set; }
+    public SpriteRenderer sr { get; private set; }
     #endregion
 
     [Header("Knockback Info")]
@@ -34,8 +34,9 @@ public class Entity : MonoBehaviour
 
     protected virtual void Start()
     {
-        fx = GetComponent<EntityFX>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
+        fx = GetComponent<EntityFX>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -71,6 +72,7 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
     }
     #endregion
+
     #region Flip
     public virtual void Flip()
     {
@@ -87,6 +89,7 @@ public class Entity : MonoBehaviour
             Flip();
     }
     #endregion
+
     #region Velocity
     public void SetZeroVelocity()
     {
@@ -103,4 +106,6 @@ public class Entity : MonoBehaviour
         FlipController(_xVelocity);
     }
     #endregion
+
+    public void MakeTransparent(bool transparent) => sr.color = transparent ? Color.clear : Color.white;
 }

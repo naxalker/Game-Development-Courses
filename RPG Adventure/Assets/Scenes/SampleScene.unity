@@ -5491,6 +5491,7 @@ GameObject:
   - component: {fileID: 691569628}
   - component: {fileID: 691569627}
   - component: {fileID: 691569631}
+  - component: {fileID: 691569632}
   m_Layer: 0
   m_Name: Skill Manager
   m_TagString: Untagged
@@ -5567,12 +5568,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cooldown: 0
-  _swordType: 3
+  _swordType: 0
   _swordPrefab: {fileID: 6874730443815890621, guid: 161fde2d35f3a7b4bb3d851149596ac2, type: 3}
   _launchForce: {x: 35, y: 25}
   _swordGravity: 4.5
+  _freezeTimeDuration: 1.5
+  _returnSpeed: 15
   _bounceAmount: 4
   _bounceGravity: 5
+  _bounceSpeed: 20
   _pierceAmount: 2
   _pierceGravity: 1
   _hitCooldown: 0.35
@@ -5583,6 +5587,26 @@ MonoBehaviour:
   _spaceBetweenDots: 0.07
   _dotPrefab: {fileID: 1227330347995175158, guid: 39c04ea5a67556d40803305d98f0f427, type: 3}
   _dotsParent: {fileID: 1135623754}
+--- !u!114 &691569632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691569626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9c68732cfe48f49b3fe72dcd5e9e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 0
+  _blackholePrefab: {fileID: 964196780120289416, guid: a902db86f044702408b20b77c73a58cc, type: 3}
+  _maxSize: 15
+  _growSpeed: 3
+  _shrinkSpeed: 6
+  _blackholeDuration: 4
+  _attacksAmount: 5
+  _cloneCooldown: 0.35
 --- !u!1 &736279333
 GameObject:
   m_ObjectHideFlags: 0
@@ -6566,7 +6590,7 @@ MonoBehaviour:
   attackCheck: {fileID: 1136268342}
   attackCheckRadius: 0.8
   groundCheck: {fileID: 631770199}
-  groundCheckDistance: 0.4
+  groundCheckDistance: 1
   wallCheck: {fileID: 531571799}
   wallCheckDistance: 0.8
   whatIsGround:
@@ -6602,6 +6626,74 @@ Transform:
   - {fileID: 531571799}
   - {fileID: 1136268342}
   - {fileID: 1706756374}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1296282029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1296282032}
+  - component: {fileID: 1296282031}
+  - component: {fileID: 1296282030}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1296282030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296282029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1296282031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296282029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1296282032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296282029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1407592287
@@ -6745,7 +6837,7 @@ MonoBehaviour:
   attackCheck: {fileID: 1503997422}
   attackCheckRadius: 0.8
   groundCheck: {fileID: 736279334}
-  groundCheckDistance: 0.4
+  groundCheckDistance: 1
   wallCheck: {fileID: 67398008}
   wallCheckDistance: 0.8
   whatIsGround:
@@ -11480,7 +11572,7 @@ MonoBehaviour:
   attackCheck: {fileID: 1009540615}
   attackCheckRadius: 0.8
   groundCheck: {fileID: 377188205}
-  groundCheckDistance: 0.4
+  groundCheckDistance: 1
   wallCheck: {fileID: 1951436172}
   wallCheckDistance: 0.8
   whatIsGround:
@@ -11650,3 +11742,4 @@ SceneRoots:
   - {fileID: 2118813440}
   - {fileID: 1852825985}
   - {fileID: 691569630}
+  - {fileID: 1296282032}

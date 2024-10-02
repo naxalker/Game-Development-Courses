@@ -22,6 +22,9 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
+        if (Input.GetKeyDown(KeyCode.R))
+            stateMachine.ChangeState(player.Blackhole);
+
         if (Input.GetKeyDown(KeyCode.Q))
             stateMachine.ChangeState(player.counterAttack);
 

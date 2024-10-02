@@ -19,7 +19,6 @@ public class Player : Entity
     public float dashDuration;
     public float dashDirection { get; private set; }
 
-    #region States
     public PlayerStateMachine stateMachine {  get; private set; }
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
@@ -34,10 +33,11 @@ public class Player : Entity
 
     public PlayerAimSwordState AimSword { get; private set; }
     public PlayerCatchSwordState CatchSword { get; private set; }
-    #endregion
 
     public SkillManager SkillManagerInstance => SkillManager.Instance;
     public SwordSkillController Sword { get; private set; }
+
+    public PlayerBlackholeState Blackhole { get; private set; }
 
     protected override void Awake()
     {
@@ -58,6 +58,8 @@ public class Player : Entity
 
         AimSword = new PlayerAimSwordState(this, stateMachine, "AimSword");
         CatchSword = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
+
+        Blackhole = new PlayerBlackholeState(this, stateMachine, "Jump");
     }
 
     protected override void Start()
