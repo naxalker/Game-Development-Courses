@@ -33,11 +33,12 @@ public class Player : Entity
 
     public PlayerAimSwordState AimSword { get; private set; }
     public PlayerCatchSwordState CatchSword { get; private set; }
+    
+    public PlayerBlackholeState Blackhole { get; private set; }
 
     public SkillManager SkillManagerInstance => SkillManager.Instance;
     public SwordSkillController Sword { get; private set; }
 
-    public PlayerBlackholeState Blackhole { get; private set; }
 
     protected override void Awake()
     {
@@ -76,6 +77,11 @@ public class Player : Entity
         stateMachine.currentState.Update();
 
         CheckForDashInput();
+
+        if (Input.GetKeyDown(KeyCode.F) && SkillManagerInstance.Crystal.CanUseSkill)
+        {
+            SkillManagerInstance.Crystal.UseSkill();
+        }
     }
 
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
