@@ -914,7 +914,7 @@ MonoBehaviour:
   lockedElements: {fileID: 1653780742218502536}
   priceText: {fileID: 1728167344762703707}
   chunkFilter: {fileID: 8371809732055318209}
-  initialPrice: 50
+  initialPrice: 0
 --- !u!114 &2533112265453807186
 MonoBehaviour:
   m_ObjectHideFlags: 0

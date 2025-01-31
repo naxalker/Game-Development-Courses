@@ -28,6 +28,8 @@ public class Player : Entity
     public PlayerWallJumpState wallJumpState { get; private set; }
     public PlayerDashState dashState { get; private set; }
 
+    public PlayerDeadState deadState { get; private set; }
+
     public PlayerPrimaryAttackState primaryAttack { get; private set; }
     public PlayerCounterAttackState counterAttack { get; private set; }
 
@@ -53,6 +55,8 @@ public class Player : Entity
         dashState = new PlayerDashState(this, stateMachine, "Dash");
         wallSlideState = new PlayerWallSlideState(this, stateMachine, "WallSlide");
         wallJumpState  = new PlayerWallJumpState(this, stateMachine, "Jump");
+
+        deadState = new PlayerDeadState(this, stateMachine, "Die");
 
         primaryAttack = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
         counterAttack = new PlayerCounterAttackState(this, stateMachine, "CounterAttack");
@@ -104,6 +108,13 @@ public class Player : Entity
         yield return new WaitForSeconds(_seconds);
 
         isBusy = false;
+    }
+
+    public override void Die()
+    {
+        base.Die();
+
+        stateMachine.ChangeState(deadState);
     }
 
     private void CheckForDashInput()

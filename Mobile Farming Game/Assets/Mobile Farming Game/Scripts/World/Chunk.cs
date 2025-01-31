@@ -100,4 +100,13 @@ public class Chunk : MonoBehaviour
     {
         return isUnlocked;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, Vector3.one * 5f);
+
+        Gizmos.color = new Color(0, 0, 0, 0);
+        Gizmos.DrawCube(transform.position, Vector3.one * 5f);
+    }
 }

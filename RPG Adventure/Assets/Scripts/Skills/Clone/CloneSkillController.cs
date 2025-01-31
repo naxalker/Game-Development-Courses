@@ -66,7 +66,7 @@ public class CloneSkillController : MonoBehaviour
         {
             if (hit.GetComponent<Enemy>() != null)
             {
-                hit.GetComponent<Enemy>().DealDamage();
+                hit.GetComponent<Enemy>().DamageEffect();
                 
                 if (_canDuplicateClone)
                 {
