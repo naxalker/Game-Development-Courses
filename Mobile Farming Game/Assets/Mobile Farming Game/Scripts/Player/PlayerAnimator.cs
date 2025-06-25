@@ -20,7 +20,8 @@ public class PlayerAnimator : MonoBehaviour
             PlayRunAnimation();
 
             animator.transform.forward = moveVector.normalized;
-        } else
+        }
+        else
         {
             PlayIdleAnimation();
         }
@@ -65,5 +66,16 @@ public class PlayerAnimator : MonoBehaviour
     public void StopHarvestAnimation()
     {
         animator.SetLayerWeight(3, 0);
+    }
+
+    public void PlayShakeTreeAnimation()
+    {
+        animator.SetLayerWeight(4, 1);
+        animator.Play("Shake Tree");
+    }
+
+    public void StopShakeTreeAnimation()
+    {
+        animator.SetLayerWeight(4, 0);
     }
 }

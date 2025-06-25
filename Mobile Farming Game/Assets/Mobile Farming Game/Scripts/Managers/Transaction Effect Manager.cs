@@ -61,11 +61,12 @@ public class TransactionEffectManager : MonoBehaviour
         ParticleSystem.Particle[] particles = new ParticleSystem.Particle[coinsAmount];
 
         Vector3 direction = (coinRectTransform.position - camera.transform.position).normalized;
-        Vector3 targetPosition = camera.transform.position + direction * (Vector3.Distance(camera.transform.position, coinPS.transform.position));
 
-        while(coinPS.isPlaying)
+        while (coinPS.isPlaying)
         {
             coinPS.GetParticles(particles);
+
+            Vector3 targetPosition = camera.transform.position + direction * Vector3.Distance(camera.transform.position, coinPS.transform.position);
 
             for (int i = 0; i < particles.Length; i++)
             {
@@ -73,7 +74,7 @@ public class TransactionEffectManager : MonoBehaviour
                     continue;
 
                 particles[i].position = Vector3.MoveTowards(particles[i].position, targetPosition, moveSpeed * Time.deltaTime);
-            
+
                 if (Vector3.Distance(particles[i].position, targetPosition) < .01f)
                 {
                     particles[i].position += Vector3.up * 100000;
@@ -83,7 +84,7 @@ public class TransactionEffectManager : MonoBehaviour
             }
 
             coinPS.SetParticles(particles);
-            
+
             yield return null;
         }
     }

@@ -29,11 +29,13 @@ public class InventoryManager : MonoBehaviour
         ConfigureInventoryDisplay();
 
         CropTile.onCropHarvested += CropHarvestedCallback;
+        AppleTree.OnAppleHarvested += CropHarvestedCallback;
     }
 
     private void OnDestroy()
     {
         CropTile.onCropHarvested -= CropHarvestedCallback;
+        AppleTree.OnAppleHarvested -= CropHarvestedCallback;
     }
 
     public Inventory GetInventory()
@@ -68,7 +70,8 @@ public class InventoryManager : MonoBehaviour
 
             if (inventory == null)
                 inventory = new Inventory();
-        } else
+        }
+        else
         {
             File.Create(dataPath);
             inventory = new Inventory();
