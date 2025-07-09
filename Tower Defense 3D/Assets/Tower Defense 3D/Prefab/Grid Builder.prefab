@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1346739424974740184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 513250091045544091}
+  - component: {fileID: 1959240792013939322}
+  - component: {fileID: 5863932384742362592}
+  - component: {fileID: 6283866388807487085}
+  m_Layer: 0
+  m_Name: Grid Builder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &513250091045544091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346739424974740184}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1959240792013939322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346739424974740184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5050b84841fbdab439bea7496635feef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <TileRoad>k__BackingField: {fileID: 2472371765007760371, guid: a4868bc247e45c54ab50cbd2b8fd5fd6, type: 3}
+  <TileField>k__BackingField: {fileID: 8811250668422283032, guid: 38056caa3db1aa040b49565c9fd0471d, type: 3}
+  <TileSideway>k__BackingField: {fileID: 1602450049607748436, guid: 4be5c377350373446b2ac710519dbe4d, type: 3}
+  <TileInnerCorner>k__BackingField: {fileID: 4581637998495413197, guid: 06ad7829791dd4e46843379462b41574, type: 3}
+  <TileInnerCornerSmall>k__BackingField: {fileID: 2003531646095635712, guid: dcaa8fe771b9c444eb5677758bdfbc54, type: 3}
+  <TileOuterCorner>k__BackingField: {fileID: 1301349507970366356, guid: 6e3bef1668e8f374daa6c31cb3d651db, type: 3}
+  <TileOuterCornerSmall>k__BackingField: {fileID: 2374270564399666151, guid: 13a8085d3ec8fd244acf406bd5401cb2, type: 3}
+  <TileHill1>k__BackingField: {fileID: 8134044790822811594, guid: 670e2c7b7a7e5b043b00f52d5e6331a4, type: 3}
+  <TileHill2>k__BackingField: {fileID: 5139512440276565825, guid: 393984069dba5834c942f09519eed98f, type: 3}
+  <TileHill3>k__BackingField: {fileID: 3463634636899776031, guid: 2152ffa365e9f3647a89d94f3280c06b, type: 3}
+  <TileBridgeField>k__BackingField: {fileID: 5783960213284677872, guid: 2f5383b947b59634ba3e5cfc3452e515, type: 3}
+  <TileBridgeRoad>k__BackingField: {fileID: 1458193502566352239, guid: a53c6e5f897852146bbaef789af53a0e, type: 3}
+  <TileBridgeSideway>k__BackingField: {fileID: 5554315390570211366, guid: a80956100b350e642baf70c13ddb6f74, type: 3}
+--- !u!114 &5863932384742362592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346739424974740184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad26aba8ce61194282580d3a7fbca53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainPrefab: {fileID: 8811250668422283032, guid: 38056caa3db1aa040b49565c9fd0471d, type: 3}
+  _gridSize: {x: 10, y: 10}
+--- !u!114 &6283866388807487085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346739424974740184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.05
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
