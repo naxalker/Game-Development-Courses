@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7468fc9e3c3e4c643968ff0944181bd6, type: 3}
-  m_Name: Wave 1
+  m_Script: {fileID: 11500000, guid: a2340a387b33d0b41bebb712bd0ae132, type: 3}
+  m_Name: Crossbow
   m_EditorClassIdentifier: 
-  <EnemiesCount>k__BackingField:
-    _serializedList:
-    - Key: 2
-      Value: 1
-  <RandomizeWave>k__BackingField: 0
-  <EnemySpawnInterval>k__BackingField: 1
+  <Cost>k__BackingField: 50
+  <TowerPrefab>k__BackingField: {fileID: 6740474277630217772, guid: 41a51182e87f502418e1d9434829ed46, type: 3}

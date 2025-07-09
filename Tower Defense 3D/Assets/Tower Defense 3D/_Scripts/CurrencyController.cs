@@ -5,7 +5,7 @@ public class CurrencyController : IInitializable, IDisposable
 {
     public event Action<int> OnCurrencyChanged;
 
-    private int _currency;
+    private int _currency = 500;
 
     public int Currency => _currency;
 

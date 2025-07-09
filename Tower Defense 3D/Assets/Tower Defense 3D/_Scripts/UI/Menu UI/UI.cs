@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,6 +15,11 @@ public class UI : MonoBehaviour
         _mainMenu = GetComponentInChildren<MainMenu>(true);
 
         SwitchTo(_settingsPanel.gameObject);
+        SwitchTo(_mainMenu.gameObject);
+    }
+
+    private void OnEnable()
+    {
         SwitchTo(_mainMenu.gameObject);
     }
 

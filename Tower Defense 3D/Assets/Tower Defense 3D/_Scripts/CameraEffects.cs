@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(CameraController))]
 public class CameraEffects : MonoBehaviour
@@ -17,11 +18,28 @@ public class CameraEffects : MonoBehaviour
     [SerializeField] private float _shakeMagnitude;
 
     private CameraController _cameraController;
+    private BuildController _buildController;
+
+    [Inject]
+    private void Construct(BuildController buildController)
+    {
+        _buildController = buildController;
+    }
+
+    private void Awake()
+    {
+        _buildController.OnTowerBuilded += TowerBuildedHandler;
+    }
+
+    private void OnDestroy()
+    {
+        _buildController.OnTowerBuilded -= TowerBuildedHandler;
+    }
 
     private void Start()
     {
         _cameraController = GetComponent<CameraController>();
-        SwitchToGameView();
+        SwitchToMenuView();
     }
 
     private void Update()
@@ -57,6 +75,11 @@ public class CameraEffects : MonoBehaviour
     public void TriggerScreenShake(float shakeDuration, float shakeMagnitude)
     {
         StartCoroutine(ScreenShake(shakeDuration, shakeMagnitude));
+    }
+
+    private void TowerBuildedHandler(Tower tower)
+    {
+        TriggerScreenShake(_shakeDuration, _shakeMagnitude);
     }
 
     private IEnumerator ChangePositionAndRotation(

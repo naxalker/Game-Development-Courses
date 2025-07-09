@@ -15,6 +15,6 @@ MonoBehaviour:
   <EnemiesCount>k__BackingField:
     _serializedList:
     - Key: 2
-      Value: 10
+      Value: 1
   <RandomizeWave>k__BackingField: 0
   <EnemySpawnInterval>k__BackingField: 1

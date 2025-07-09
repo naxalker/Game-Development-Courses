@@ -13,6 +13,11 @@ public class TowerCrossbow : Tower
     protected override void Awake()
     {
         base.Awake();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
 
         _crossbowVisuals = GetComponent<CrossbowVisuals>();
         _crossbowVisuals.PlayReloadVFX(AttackCooldown);

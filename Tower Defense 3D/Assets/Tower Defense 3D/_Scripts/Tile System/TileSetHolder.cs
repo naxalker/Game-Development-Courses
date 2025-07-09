@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TileSlotHolder : MonoBehaviour
+public class TileSetHolder : MonoBehaviour
 {
     [field: Header("Straight Tiles")]
     [field: SerializeField] public GameObject TileRoad { get; private set; }

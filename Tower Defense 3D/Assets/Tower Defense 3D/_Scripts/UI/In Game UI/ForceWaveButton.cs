@@ -36,7 +36,7 @@ public class ForceWaveButton : MonoBehaviour
     private void FinalWaveStartedHandler()
     {
         _button.interactable = false;
-        _canvasGroup.DOFade(0f, 1f)
+        _canvasGroup.DOFade(0f, .5f)
             .OnComplete(() => gameObject.SetActive(false));
     }
 }

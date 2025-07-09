@@ -28,6 +28,11 @@ public abstract class Tower : MonoBehaviour
 
     }
 
+    protected virtual void Start()
+    {
+
+    }
+
     protected virtual void Update()
     {
         if (CurrentEnemy == null)

@@ -8,6 +8,7 @@ public class TileSlot : MonoBehaviour
     private MeshFilter _meshFilter => GetComponent<MeshFilter>();
     private Collider _collider => GetComponent<Collider>();
     private NavMeshSurface _navMesh => GetComponentInParent<NavMeshSurface>();
+    private TileSetHolder tileSetHolder => GetComponentInParent<TileSetHolder>();
 
     public void SwitchTile(GameObject referenceTile)
     {
@@ -22,6 +23,8 @@ public class TileSlot : MonoBehaviour
         UpdateChildren(newTile);
         UpdateLayer(referenceTile);
         UpdateNavMesh();
+
+        TurnIntoBuildSlotIfNeeded(referenceTile);
     }
 
     public Material GetMaterial() => _meshRenderer.sharedMaterial;
@@ -73,6 +76,23 @@ public class TileSlot : MonoBehaviour
 
             collider.sharedMesh = original.sharedMesh;
             collider.convex = original.convex;
+        }
+    }
+
+    private void TurnIntoBuildSlotIfNeeded(GameObject referenceTile)
+    {
+        BuildSlot buildSlot = GetComponent<BuildSlot>();
+
+        if (referenceTile != tileSetHolder.TileField)
+        {
+            DestroyImmediate(buildSlot);
+        }
+        else
+        {
+            if (buildSlot == null)
+            {
+                buildSlot = gameObject.AddComponent<BuildSlot>();
+            }
         }
     }
 

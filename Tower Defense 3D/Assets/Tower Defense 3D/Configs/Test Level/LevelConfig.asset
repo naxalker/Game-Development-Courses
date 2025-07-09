@@ -9,12 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7468fc9e3c3e4c643968ff0944181bd6, type: 3}
-  m_Name: Wave 1
+  m_Script: {fileID: 11500000, guid: 21ce6b1751cf32e44b32b2c7d368a268, type: 3}
+  m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  <EnemiesCount>k__BackingField:
+  <TowerConfigs>k__BackingField:
     _serializedList:
+    - Key: 0
+      Value: 1
+    - Key: 1
+      Value: 1
     - Key: 2
       Value: 1
-  <RandomizeWave>k__BackingField: 0
-  <EnemySpawnInterval>k__BackingField: 1
+    - Key: 3
+      Value: 0
+    - Key: 4
+      Value: 1
+    - Key: 5
+      Value: 0
+    - Key: 6
+      Value: 1

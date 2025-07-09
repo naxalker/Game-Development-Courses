@@ -72,7 +72,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Field", GUILayout.Width(twoButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileField;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileField;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -82,7 +82,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Road", GUILayout.Width(twoButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileRoad;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileRoad;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -96,7 +96,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Sideway", GUILayout.Width(oneButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileSideway;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileSideway;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -113,7 +113,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Inner Corner", GUILayout.Width(twoButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileInnerCorner;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileInnerCorner;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -123,7 +123,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Outer Corner", GUILayout.Width(twoButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileOuterCorner;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileOuterCorner;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -137,7 +137,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Inner Corner Small", GUILayout.Width(twoButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileInnerCornerSmall;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileInnerCornerSmall;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -147,7 +147,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Outer Corner Small", GUILayout.Width(twoButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileOuterCornerSmall;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileOuterCornerSmall;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -164,7 +164,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Hill 1", GUILayout.Width(threeButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileHill1;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileHill1;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -174,7 +174,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Hill 2", GUILayout.Width(threeButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileHill2;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileHill2;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -184,7 +184,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Hill 3", GUILayout.Width(threeButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileHill3;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileHill3;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -198,7 +198,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Bridge with field", GUILayout.Width(threeButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileBridgeField;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileBridgeField;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -208,7 +208,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Bridge with road", GUILayout.Width(threeButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileBridgeRoad;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileBridgeRoad;
 
             foreach (TileSlot tileSlot in targets)
             {
@@ -218,7 +218,7 @@ public class TileSlotEditor : Editor
 
         if (GUILayout.Button("Bridge with sideway", GUILayout.Width(threeButtonWidth)))
         {
-            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().TileBridgeSideway;
+            GameObject newTile = FindFirstObjectByType<TileSetHolder>().TileBridgeSideway;
 
             foreach (TileSlot tileSlot in targets)
             {

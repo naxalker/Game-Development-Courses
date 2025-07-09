@@ -5,6 +5,8 @@ using Zenject;
 public class WavesController : IInitializable, IDisposable, ITickable
 {
     public event Action OnFinalWaveStarted;
+    public event Action<int> OnWaveStarted;
+    public event Action<int> OnWaveCompleted;
 
     private int _waveIndex = 0;
     private int _totalEnemiesInWave = 0;
@@ -62,18 +64,16 @@ public class WavesController : IInitializable, IDisposable, ITickable
         {
             OnFinalWaveStarted?.Invoke();
         }
+        else
+        {
+            OnWaveStarted?.Invoke(_waveIndex);
+        }
 
         _waveTimer = _wavesDuration[_waveIndex];
 
         foreach (EnemyPortal portal in _enemyPortals)
         {
             _totalEnemiesInWave += portal.StartNewWave(_waveIndex);
-        }
-
-        if (_totalEnemiesInWave == 0)
-        {
-            Debug.LogWarning("Level completed! No enemies to spawn in this wave.");
-            return;
         }
 
         _waveIndex++;
@@ -85,7 +85,7 @@ public class WavesController : IInitializable, IDisposable, ITickable
 
         if (_totalEnemiesInWave <= 0)
         {
-            // StartNewWave();
+            OnWaveCompleted?.Invoke(_waveIndex - 1);
         }
     }
 }

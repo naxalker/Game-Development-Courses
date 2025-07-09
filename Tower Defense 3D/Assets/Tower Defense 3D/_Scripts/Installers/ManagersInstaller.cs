@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +10,12 @@ public class ManagersInstaller : MonoInstaller
     [Header("Health Controller")]
     [SerializeField] private int _maxHP = 100;
     [SerializeField] private Castle _castle;
+
+    [Header("Build Controller")]
+    [SerializeField]
+    [SerializedDictionary("Tower Type", "Tower Config")]
+    private SerializedDictionary<TowerType, TowerConfig> _towerConfigs;
+    [SerializeField] private LevelConfig _levelConfig;
 
     public override void InstallBindings()
     {
@@ -22,6 +29,10 @@ public class ManagersInstaller : MonoInstaller
 
         Container.BindInterfacesAndSelfTo<CurrencyController>()
             .AsSingle();
+
+        Container.BindInterfacesAndSelfTo<BuildController>()
+            .AsSingle()
+            .WithArguments(_towerConfigs, _levelConfig);
     }
 
 }
