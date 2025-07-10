@@ -42,24 +42,6 @@ public class CameraEffects : MonoBehaviour
         SwitchToMenuView();
     }
 
-    private void Update()
-    {
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SwitchToMenuView();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SwitchToGameView();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            TriggerScreenShake(_shakeDuration, _shakeMagnitude);
-        }
-#endif
-    }
-
     public void SwitchToMenuView()
     {
         StartCoroutine(ChangePositionAndRotation(_inMenuPosition, _inMenuRotation));

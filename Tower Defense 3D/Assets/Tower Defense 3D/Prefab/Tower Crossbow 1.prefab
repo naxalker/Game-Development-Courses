@@ -893,7 +893,7 @@ GameObject:
   - component: {fileID: 6740474277630217772}
   - component: {fileID: 5126719071416196260}
   m_Layer: 0
-  m_Name: Tower Crossbow
+  m_Name: Tower Crossbow 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -951,7 +951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerHead: {fileID: 4103112640719082758}
   RotationSpeed: 25
-  <AttackRange>k__BackingField: 5
+  <AttackRange>k__BackingField: 3
   AttackCooldown: 1.5
   PriorityEnemyType: 2
   DynamicTargetChange: 1

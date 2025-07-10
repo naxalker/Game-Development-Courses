@@ -3,9 +3,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
-public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private BuildController _buildController;
+
+    private bool _isBlocked = false;
 
     [Inject]
     private void Construct(BuildController buildController)
@@ -15,37 +17,43 @@ public class BuildSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (_buildController.CurrentBuildSlot == this) { return; }
+        if (_buildController.CurrentBuildSlot == this || _isBlocked) { return; }
 
         MoveUp();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (_buildController.CurrentBuildSlot == this) { return; }
+        if (_buildController.CurrentBuildSlot == this || _isBlocked) { return; }
 
         MoveDown();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void ShowBuildSlot(bool instant = false)
     {
-        if (eventData.button != PointerEventData.InputButton.Left) { return; }
-
-        _buildController.SetCurrentBuildSlot(this);
+        MoveUp(instant);
     }
 
-    public void DeselectBuildSlot(bool instant = false)
+    public void HideBuildSlot(bool instant = false, bool blocked = false)
     {
+        _isBlocked = blocked;
         MoveDown(instant);
     }
 
-    private void MoveUp()
+    private void MoveUp(bool instant = false)
     {
         transform.DOKill();
 
-        transform.DOLocalMoveY(0.5f, 0.2f)
+        if (instant)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, 0.5f, transform.localPosition.z);
+        }
+        else
+        {
+            transform.DOLocalMoveY(0.5f, 0.2f)
                     .From(transform.position)
                     .SetEase(Ease.OutQuad);
+        }
     }
 
     private void MoveDown(bool instant = false)

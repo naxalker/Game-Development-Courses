@@ -2,7 +2,7 @@ using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using Zenject;
 
-public class ManagersInstaller : MonoInstaller
+public class ControllersInstaller : MonoInstaller
 {
     [Header("Wave Manager")]
     [SerializeField] private int[] _wavesDuration;
@@ -16,6 +16,9 @@ public class ManagersInstaller : MonoInstaller
     [SerializedDictionary("Tower Type", "Tower Config")]
     private SerializedDictionary<TowerType, TowerConfig> _towerConfigs;
     [SerializeField] private LevelConfig _levelConfig;
+    [SerializeField] private BuildButtonsHolder _buildButtonsHolder;
+    [SerializeField] private Material _transparentMaterial;
+    [SerializeField] private Material _attackRangeMaterial;
 
     public override void InstallBindings()
     {
@@ -32,7 +35,7 @@ public class ManagersInstaller : MonoInstaller
 
         Container.BindInterfacesAndSelfTo<BuildController>()
             .AsSingle()
-            .WithArguments(_towerConfigs, _levelConfig);
+            .WithArguments(_towerConfigs, _levelConfig, _buildButtonsHolder, _transparentMaterial, _attackRangeMaterial);
     }
 
 }

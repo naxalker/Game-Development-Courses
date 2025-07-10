@@ -5,11 +5,16 @@ using Zenject;
 
 public class BuildButtonsHolder : MonoBehaviour
 {
+    public event Action OnShow;
+    public event Action OnHide;
+
     private const float SHOW_POSITION_Y = 150f;
     private const float HIDE_POSITION_Y = -150f;
     private const float ANIMATION_DURATION = .5f;
 
     private bool _isActive = false;
+    private BuildButton[] _buildButtons;
+    private BuildButton _selectedButton;
 
     private BuildController _buildController;
     private RectTransform _rectTransform;
@@ -20,48 +25,82 @@ public class BuildButtonsHolder : MonoBehaviour
         _buildController = buildController;
     }
 
+    public bool IsActive => _isActive;
+    public BuildButton SelectedButton => _selectedButton;
+
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
 
         _buildController.OnNewSlotSelected += NewSlotSelectedHandler;
-        _buildController.OnTowerBuilded += SlotDeselectedHandler;
+        _buildController.OnSlotDeselected += SlotDeselectedHandler;
     }
 
     private void OnDestroy()
     {
         _buildController.OnNewSlotSelected -= NewSlotSelectedHandler;
-        _buildController.OnTowerBuilded -= SlotDeselectedHandler;
+        _buildController.OnSlotDeselected -= SlotDeselectedHandler;
     }
 
     private void Start()
     {
         Hide(true);
+
+        _buildButtons = GetComponentsInChildren<BuildButton>();
     }
 
-#if UNITY_EDITOR
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (_isActive)
         {
-            if (_isActive)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Hide();
             }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (_selectedButton != null)
+                {
+                    _selectedButton.TriggerButton();
+                }
+            }
             else
             {
-                Show();
+                for (int i = 0; i < _buildButtons.Length; i++)
+                {
+                    if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+                    {
+                        if (_selectedButton != null)
+                        {
+                            _selectedButton.DeselectButton();
+                        }
+                        _buildButtons[i].SelectButton();
+                    }
+                }
             }
         }
     }
-#endif
+
+    public void SetSelectedButton(BuildButton button)
+    {
+        _selectedButton = button;
+
+        if (_selectedButton != null)
+        {
+            _buildController.CreatePreviewTower(_selectedButton.TowerType);
+        }
+        else
+        {
+            _buildController.DestroyPreviewTower();
+        }
+    }
 
     private void NewSlotSelectedHandler(BuildSlot slot)
     {
         Show();
     }
 
-    private void SlotDeselectedHandler(Tower tower)
+    private void SlotDeselectedHandler()
     {
         Hide();
     }
@@ -80,6 +119,8 @@ public class BuildButtonsHolder : MonoBehaviour
         }
 
         _isActive = true;
+
+        OnShow?.Invoke();
     }
 
     private void Hide(bool instant = false)
@@ -96,5 +137,11 @@ public class BuildButtonsHolder : MonoBehaviour
         }
 
         _isActive = false;
+
+        _selectedButton?.DeselectButton();
+
+        _buildController.DestroyPreviewTower();
+
+        OnHide?.Invoke();
     }
 }

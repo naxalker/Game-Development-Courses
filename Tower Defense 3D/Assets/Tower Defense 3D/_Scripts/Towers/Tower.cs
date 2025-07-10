@@ -8,7 +8,7 @@ public abstract class Tower : MonoBehaviour
     [SerializeField] protected float RotationSpeed;
 
     [Header("Attack Settings")]
-    [SerializeField] protected float AttackRange;
+    [field: SerializeField] public float AttackRange { get; protected set; }
     [SerializeField] protected float AttackCooldown;
     [SerializeField] protected EnemyType PriorityEnemyType;
     [SerializeField] protected bool DynamicTargetChange = true;

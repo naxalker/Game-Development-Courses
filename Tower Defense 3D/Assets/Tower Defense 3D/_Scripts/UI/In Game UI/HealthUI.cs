@@ -8,6 +8,7 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _healthText;
 
     private HealthController _healthController;
+    private ShakeEffect _shakeEffect;
 
     [Inject]
     public void Construct(HealthController healthController)
@@ -17,6 +18,8 @@ public class HealthUI : MonoBehaviour
 
     private void Awake()
     {
+        _shakeEffect = GetComponent<ShakeEffect>();
+
         _healthController.OnHealthChanged += HealthChangedHandler;
     }
 
@@ -33,10 +36,11 @@ public class HealthUI : MonoBehaviour
     private void HealthChangedHandler(int currentHP)
     {
         UpdateText(currentHP, _healthController.MaxHP);
+        _shakeEffect.DoShakeEffect();
     }
 
     private void UpdateText(int currentHP, int maxHP)
     {
-        _healthText.text = $"Threat {currentHP}/{maxHP}";
+        _healthText.text = $"Threat {maxHP - currentHP}/{maxHP}";
     }
 }

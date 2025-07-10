@@ -4,6 +4,7 @@ using Zenject;
 public class CurrencyController : IInitializable, IDisposable
 {
     public event Action<int> OnCurrencyChanged;
+    public event Action OnInsufficientCurrency;
 
     private int _currency = 500;
 
@@ -24,12 +25,20 @@ public class CurrencyController : IInitializable, IDisposable
         Enemy.OnEnemyDied -= EnemyDiedHandler;
     }
 
-    public void SpendCurrency(int amount)
+    public bool TrySpendCurrency(int amount)
     {
         if (amount <= _currency)
         {
             _currency -= amount;
             OnCurrencyChanged?.Invoke(_currency);
+
+            return true;
+        }
+        else
+        {
+            OnInsufficientCurrency?.Invoke();
+
+            return false;
         }
     }
 

@@ -4,6 +4,7 @@ public class InGameUI : MonoBehaviour
 {
     [SerializeField] private GameObject _pausePanel;
     [SerializeField] private GameObject _gameplayPanel;
+    [SerializeField] private BuildButtonsHolder _buildButtonsHolder;
 
     private void OnEnable()
     {
@@ -12,7 +13,7 @@ public class InGameUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && _buildButtonsHolder.IsActive == false)
         {
             if (_pausePanel.gameObject.activeSelf)
             {

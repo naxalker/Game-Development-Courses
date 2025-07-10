@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2340a387b33d0b41bebb712bd0ae132, type: 3}
+  m_Name: Crossbow 1
+  m_EditorClassIdentifier: 
+  <Cost>k__BackingField: 50
+  <TowerPrefab>k__BackingField: {fileID: 6740474277630217772, guid: 41a51182e87f502418e1d9434829ed46, type: 3}
